@@ -20,6 +20,14 @@ fn main() -> io::Result<()> {
     let output_file = &args[2];
     let local_path = "cloned_repo";
 
+    //check local path exist
+    if Path::new(local_path).exists() {
+        //try to remove local directory
+        if let Err(e) = fs::remove_dir_all(local_path) {
+            eprintln!("Failed to remove directory: {}", e);
+        }
+    }
+
     // Clone the repository
     clone_repo(repo_url, local_path)?;
 
